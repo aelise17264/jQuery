@@ -25,6 +25,10 @@ $(".btn").on("click", function(event){
     console.log(useChosenColor)
     userclickedPattern.push(useChosenColor)
 
+    $("#" + this.id).fadeIn(100).fadeOut(100).fadeIn(100);
+    var boxSound = new Audio("sounds/" + this.id + ".mp3");
+    boxSound.play();
+
 })
 
 
