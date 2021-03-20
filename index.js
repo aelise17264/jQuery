@@ -10,7 +10,7 @@ $("h1").click(function(){
 })
 
 $("button").click(function(){
-    $("h1").css("color", "blue")
+    $("h1").slideUp().slideDown()
 })
 
 $(document).keypress(function(event){
@@ -24,3 +24,5 @@ $("h1").on("mouseenter", function(){
 $("h1").on("mouseout", function(){
     $("h1").css("color", "yellow")
 })
+
+$("h1").before("<button>New</button>")
