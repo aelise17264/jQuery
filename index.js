@@ -3,6 +3,7 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
 
+var userclickedPattern = [];
 
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4);
@@ -16,7 +17,15 @@ function nextSequence() {
     boxSound.play();
 
 }
-nextSequence()
+// nextSequence()
+
+$(".btn").on("click", function(event){
+    event.preventDefault();
+    var useChosenColor = $(this).attr("id")
+    console.log(useChosenColor)
+    userclickedPattern.push(useChosenColor)
+
+})
 
 
 
