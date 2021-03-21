@@ -5,7 +5,55 @@ var gamePattern = [];
 
 var userclickedPattern = [];
 
+var started = false;
+var level = 0;
+
+$(document).on("keydown", function(){
+    if(!started){
+        $("#level-title").text("Level " + level)
+        nextSequence()
+        started = true
+    }
+})
+
+$(".btn").click(function(){
+    var useChosenColor = $(this).attr("id")
+    // console.log(useChosenColor)
+    userclickedPattern.push(useChosenColor)
+    var boxSound = new Audio("sounds/" + this.id + ".mp3");
+    boxSound.play();
+    animatePress(useChosenColor)
+
+    checkAnswer(userclickedPattern.length-1)
+
+})
+
+
+function checkAnswer(currentLevel){
+    if(gamePattern[currentLevel] === userclickedPattern[currentLevel]){
+        if(userclickedPattern.length === gamePattern.length){
+            setTimeout(function(){
+                nextSequence();
+            }, 1000);
+            }
+        } else{
+            var wrongSound = new Audio("sounds/wrong.mp3")
+            wrongSound.play()
+            $("body").addClass("game-over")
+            $("#level-title").text("Game Over, Press Any Key to Restart")
+
+            setTimeout(function(){
+                $("body").removeClass("game-over");
+            }, 200);
+
+            startOver()
+    }
+}
+
 function nextSequence() {
+    userclickedPattern = [];
+    level++;
+    $("#level-title").text("Level " + level)
     var randomNumber = Math.floor(Math.random() * 4);
     // return randomNumber
     var randomChosenColor = buttonColors[randomNumber];
@@ -17,7 +65,6 @@ function nextSequence() {
     boxSound.play();
 
 }
-// nextSequence()
 
 function animatePress(currentColor){
     $("#" + currentColor).addClass("pressed")
@@ -26,17 +73,13 @@ function animatePress(currentColor){
     }, 100)
 }
 
-$(".btn").on("click", function(event){
-    event.preventDefault();
-    var useChosenColor = $(this).attr("id")
-    console.log(useChosenColor)
-    userclickedPattern.push(useChosenColor)
-    var boxSound = new Audio("sounds/" + this.id + ".mp3");
-    boxSound.play();
-    animatePress(useChosenColor)
 
-})
 
+function startOver(){
+    level = 0;
+    gamePattern = [];
+    started = false;
+}
 
 
 
