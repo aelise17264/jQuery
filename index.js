@@ -19,15 +19,21 @@ function nextSequence() {
 }
 // nextSequence()
 
+function animatePress(currentColor){
+    $("#" + currentColor).addClass("pressed")
+    setTimeout(function(){
+        $("#" + currentColor).removeClass("pressed")
+    }, 100)
+}
+
 $(".btn").on("click", function(event){
     event.preventDefault();
     var useChosenColor = $(this).attr("id")
     console.log(useChosenColor)
     userclickedPattern.push(useChosenColor)
-
-    $("#" + this.id).fadeIn(100).fadeOut(100).fadeIn(100);
     var boxSound = new Audio("sounds/" + this.id + ".mp3");
     boxSound.play();
+    animatePress(useChosenColor)
 
 })
 
